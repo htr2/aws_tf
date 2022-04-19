@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
 
     }
   }
@@ -90,7 +90,7 @@ resource "aws_security_group" "public_security_group" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"  #tf equivalent to all....
+    protocol    = "-1" #tf equivalent to all....
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
