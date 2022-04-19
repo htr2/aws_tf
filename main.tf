@@ -47,7 +47,6 @@ resource "aws_internet_gateway" "us-east-1_internet_gateway" {
 
 resource "aws_route_table" "us-east-1a-public-subnet_rt" {
   vpc_id = aws_vpc.us-east-1_vpc.id
-
   tags = {
     Name = "us-east-1a-public-subnet_rt"
   }
