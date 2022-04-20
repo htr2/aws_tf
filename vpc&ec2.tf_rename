@@ -1,21 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-
-    }
-  }
-}
-
-# Configure the AWS Provider
-# although with a few cruxes (e.g. alias provider passed to modules, or scripts to generate providers etc) it is possible to define multi region deployments,
-# considered complicated and impacting large blast ranges... lets stick to simple things....
-
-provider "aws" {
-  region = "us-east-1"
-}
-
-
 resource "aws_vpc" "us-east-1_vpc" {
   cidr_block           = "10.10.0.0/16"
   enable_dns_hostnames = true
