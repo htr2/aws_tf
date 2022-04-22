@@ -1,8 +1,6 @@
 # aws_tf_initial setup...
 
-this is kept deliberately seperate and intended to assist enabling an new aws account for subsequent tf management 
-
- Markup :
+this is kept deliberately seperate and intended to assist enabling a new aws account for subsequent tf management 
 
     - requires manual steps from linux:
         - install terraform
