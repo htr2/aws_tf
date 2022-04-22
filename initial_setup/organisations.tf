@@ -1,7 +1,5 @@
-
 resource "aws_organizations_organization" "organization" {
 }
-
 
 resource "aws_organizations_account" "production" {
   name  = "hvoelksen-aws-production"

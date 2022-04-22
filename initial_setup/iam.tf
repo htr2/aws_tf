@@ -33,12 +33,6 @@ resource "aws_iam_group" "Administrators" {
   #path = "/users/"
 }
 
-#cannot initialise authenticator app (mfa device) by code....requires QRcode scanning by app or similar...
-#resource "aws_iam_virtual_mfa_device" "example" {
-#  virtual_mfa_device_name = "admin-mfa-device"
-#}
-
-
 
 resource "aws_iam_policy" "AdministratorAccess-MFAenforced" {
   name        = "AdministratorAccess-MFAenforced"
@@ -79,8 +73,11 @@ resource "aws_iam_user_group_membership" "user-group" {
 }
 
 
-###mfa 
-#note that provider has bug and mangles qr code output unusable, aws cli works..., string seed might work too...
+###mfa
+#left out as one cannot complete activate mfa device (authenticator app) by code....requires QRcode scanning by app or code entry...
+#so if manual required do all manual...
+#also aws provider has bug and mangles qr code output unusable, aws cli works..., string seed might work too...
+/*
 resource "aws_iam_virtual_mfa_device" "testing_mfa_qr" {
   virtual_mfa_device_name = "qr_png_test"
 }
@@ -102,3 +99,4 @@ output "mfa_qr" {
   #sensitive = true
   value     = aws_iam_virtual_mfa_device.testing_mfa_qr.qr_code_png
 }
+*/
