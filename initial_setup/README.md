@@ -12,13 +12,14 @@ this is kept deliberately seperate and intended to assist enabling a new aws acc
         - under billing preferences enable pdf, free tier usage alerts and billing alerts 
         - under iam create aws temp-user for programatic access: tf, assign admin rights, 
         - save key and secret to ~/.aws/credentials [default]
-        - edit iam.tf with account id
         - terraform init
         - terraform apply
-        - record access credentials
+        - record created admin user access credentials
+        - remove admin user creds from tf files
         - delete tf user
         - enable mfa for admin user
         - delete ~/.aws/credentials
+        
 
     - creates 
         - account alias
