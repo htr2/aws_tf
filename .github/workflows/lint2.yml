@@ -1,0 +1,32 @@
+name: Lint
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  # Replace pull_request with pull_request_target if you
+  # plan to use this action with forks, see the Limitations section
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  validate-fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - shell: bash
+        run: |
+          echo GH_Actioning 
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Format
+        run: terraform fmt -diff
+      - name: Terraform Validate
+        run: terraform validate
