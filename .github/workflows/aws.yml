@@ -1,0 +1,28 @@
+name: aws
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+
+jobs:
+ build:
+   name: build
+   permissions:
+     id-token: write
+     contents: read
+   runs-on: ubuntu-18.04
+   steps:
+     - name: Git clone the repository
+       uses: actions/checkout@v3
+     - name: Configure AWS Credentials
+       uses: aws-actions/configure-aws-credentials@v1
+       with:
+         aws-region: us-east-1
+         role-to-assume: arn:aws:iam::373822708689:role/GithubActions-VPCadmin
+         role-duration-seconds: 900 # the ttl of the session, in seconds.
+         role-session-name: GithubActionsSession
+     - name:  test aws cli
+       run: aws sts get-caller-identity
