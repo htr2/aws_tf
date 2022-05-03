@@ -43,3 +43,5 @@ jobs:
           role-session-name: GithubActionsSession
       - name: test aws id
         run: aws sts get-caller-identity
+      - name: create test vpc 
+        run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
