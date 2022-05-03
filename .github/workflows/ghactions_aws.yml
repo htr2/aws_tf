@@ -12,6 +12,9 @@ jobs:
     name: validate-fmt  
     runs-on: ubuntu-latest
     steps:
+      - shell: bash
+        run: |
+          echo GH_Actioning 
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Terraform
@@ -22,10 +25,8 @@ jobs:
         run: terraform fmt -diff
       - name: Terraform Validate
         run: terraform validate
-      - name: environment status
-        run: env
-  get-credentials:
-    name: get-credentials
+  build:
+    name: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -42,8 +43,6 @@ jobs:
           role-session-name: GithubActionsSession
       - name: test aws id
         run: aws sts get-caller-identity
-      - name: environment status
-        run: env
       #- name: create test vpc 
       #  run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
       #- name: create test bucket 
