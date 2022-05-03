@@ -45,3 +45,5 @@ jobs:
         run: aws sts get-caller-identity
       - name: create test vpc 
         run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
+      - name: create test bucket 
+        run: aws s3 mb s3://hv-ISDAWAS-test-bucket
