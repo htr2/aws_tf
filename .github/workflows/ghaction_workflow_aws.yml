@@ -37,7 +37,7 @@ jobs:
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::373822708689:role/GithubActions-VPCadmin
-          role-duration-seconds: 60 # the ttl of the session, in seconds.
+          role-duration-seconds: 120 # the ttl of the session, in seconds.
           role-session-name: GithubActionsSession
       - name: test aws id
         run: aws sts get-caller-identity
