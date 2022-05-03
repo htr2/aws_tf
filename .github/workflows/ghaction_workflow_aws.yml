@@ -48,13 +48,13 @@ jobs:
       #  run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
       #- name: create test bucket 
       #  run: aws s3api create-bucket --bucket hv-wasndas-test-bucket
-  build:
-    needs: [validate-fmt,get-credentials]
-    name: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: test aws id
-        run: aws sts get-caller-identity
+#  build:
+#    needs: [validate-fmt,get-credentials]
+#    name: build
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: test aws id
+#        run: aws sts get-caller-identity
       - name: Terraform Init
         run: terraform init -input=false
       #- name: Terraform Plan
