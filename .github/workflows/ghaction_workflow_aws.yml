@@ -1,4 +1,4 @@
-name: aws
+name: ghaction_workflow_aws
 
 on:
   # Trigger the workflow on push or pull request,
@@ -12,8 +12,8 @@ jobs:
     name: validate-fmt  
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Git clone the repository
+        uses: actions/checkout@v3
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
       - name: Terraform Init
@@ -25,27 +25,34 @@ jobs:
       - name: environment status
         run: env
   get-credentials:
+    needs: [validate-fmt]
     name: get-credentials
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::373822708689:role/GithubActions-VPCadmin
-          role-duration-seconds: 900 # the ttl of the session, in seconds.
+          role-duration-seconds: 60 # the ttl of the session, in seconds.
           role-session-name: GithubActionsSession
       - name: test aws id
         run: aws sts get-caller-identity
-      - name: environment status
-        run: env
+      #- name: environment status
+      #  run: env
       #- name: create test vpc 
       #  run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
       #- name: create test bucket 
       #  run: aws s3api create-bucket --bucket hv-wasndas-test-bucket
-  
+  build:
+    needs: [validate-fmt,get-credentials]
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform Init
+        run: terraform init
+     - name: Terraform Apply
+        run: terraform apply -auto-approve
