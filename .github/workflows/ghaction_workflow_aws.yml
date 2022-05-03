@@ -53,6 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -input=false
+      - name: Terraform Plan
+        run: terraform plan -input=false #-out=tfplan
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: terraform apply -input=false -auto-approve #tfplan
