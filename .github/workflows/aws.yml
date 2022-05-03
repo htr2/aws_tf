@@ -46,7 +46,5 @@ jobs:
       - name: create test vpc 
         run: aws ec2 create-vpc --cidr-block 10.10.0.0/16
       - name: create test bucket 
-        run: aws s3api create-bucket \
-                --bucket hv-wasndas-test-bucket \
-                --region us-east-1
+        run: aws s3api create-bucket --bucket hv-wasndas-test-bucket
   
