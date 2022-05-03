@@ -54,7 +54,11 @@ jobs:
     steps:
       - name: Terraform Init
         run: terraform init -input=false
+      - name: pwd
+        run: pwd
+      - name: ls
+        run: ls
       - name: Terraform Plan
-        run: terraform plan -input=false #-out=tfplan
+        run: terraform plan -input=false -out=tfplan
       - name: Terraform Apply
-        run: terraform apply -input=false -auto-approve #tfplan
+        run: terraform apply -input=false tfplan
