@@ -55,6 +55,8 @@ jobs:
 #    steps:
 #      - name: test aws id
 #        run: aws sts get-caller-identity
+      - name: Git clone the repository
+        uses: actions/checkout@v3
       - name: Terraform Init
         run: terraform init -input=false
       #- name: Terraform Plan
