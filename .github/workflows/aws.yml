@@ -25,4 +25,5 @@ jobs:
          role-duration-seconds: 900 # the ttl of the session, in seconds.
          role-session-name: GithubActionsSession
      - name:  test aws cli
-       run: aws sts get-caller-identity
+       run: aws s3 ls
+            aws sts get-caller-identity
