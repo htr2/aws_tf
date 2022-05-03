@@ -41,7 +41,5 @@ jobs:
           role-to-assume: arn:aws:iam::373822708689:role/GithubActions-VPCadmin
           role-duration-seconds: 900 # the ttl of the session, in seconds.
           role-session-name: GithubActionsSession
-      - name: test aws s3
-        run: aws s3 ls
       - name: test aws id
         run: aws sts get-caller-identity
