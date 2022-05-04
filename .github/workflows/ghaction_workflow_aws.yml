@@ -32,7 +32,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Get AWS Credentials Management via OIDC
+      - name: Get AWS Credentials for Management Account via OIDC
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
@@ -40,7 +40,12 @@ jobs:
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-session-name: GithubActionsSession
       - name: show credentials
-        run: aws sts get-caller-identity
+        run: |
+              aws sts get-caller-identity
+              aws sts get-access-key-info
+              env env | grep AWS
+              more ~/.aws/credentials
+              echo ${{ env.AWS_SESSION_TOKEN }}
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
         with:
