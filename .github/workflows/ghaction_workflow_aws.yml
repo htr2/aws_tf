@@ -42,12 +42,12 @@ jobs:
       - name: show credentials
         run: |
               aws sts get-caller-identity
-              aws sts get-access-key-info
               env env | grep AWS
               more ~/.aws/credentials
               echo ${{ env.AWS_SESSION_TOKEN }}
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
+        continue-on-error: true
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::697627695456:role/OrganizationAccountAccessRole
