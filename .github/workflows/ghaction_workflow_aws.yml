@@ -32,11 +32,18 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Configure AWS Credentials
+      - name: Get AWS Credentials Management via OIDC
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE }}
+          role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
+          role-session-name: GithubActionsSession
+      - name: Assume AWS Credentials Target Account 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::697627695456:role/OrganizationAccountAccessRole
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-session-name: GithubActionsSession
       - name: Git clone the repository

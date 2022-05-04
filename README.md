@@ -1,5 +1,5 @@
 # aws_tf
-uses terraform to create aws
+uses github repo with actions to create an aws setup using terraform
 vpc with subnet, igw, route table 
 ec2 instance with basic web server
 
