@@ -39,6 +39,7 @@ jobs:
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE }}
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-session-name: GithubActionsSession
+          mask-aws-account-id: false
       - name: show credentials
         run: |
               aws sts get-caller-identity
