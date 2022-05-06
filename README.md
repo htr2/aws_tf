@@ -1,16 +1,8 @@
 # aws_tf
-uses github repo with actions to create an aws setup using terraform
+upon push to main into github repo the workflow creates in an organisational sub account an aws setup using terraform:
 vpc with subnet, igw, route table 
 ec2 instance with basic web server
 
-# Usage
-terraform apply
 
-# Examples
-terraform apply
+requires initial_setup to be completed (ie aws organisation with mgmt account, github account with repo, actions and secrets....)
 
-# Requirements
-requires aws account with programatic access, linux shell (bash with aws cli with and access credentials (env var or ~./aws/credentials) )
-
-# Vars, Inputs and Outputs
-no vars or input (other than what is declared in provided files), produces running ec2 instance!

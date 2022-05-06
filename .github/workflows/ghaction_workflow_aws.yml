@@ -32,25 +32,23 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Get AWS Credentials for Management Account via OIDC
+      - name: Get AWS Credentials for Management Account Role via OIDC
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE }}
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-session-name: GithubActionsSession
-          mask-aws-account-id: false
-      - name: show credentials
-        run: |
-              aws sts get-caller-identity
-              env | grep AWS > env.txt
-              ##more ~/.aws/credentials > creds.txt
-              echo ${{ env.AWS_ACCESS_KEY_ID }} >id.txt
-      - name: upload files to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifacts
-          path: .
+#          mask-aws-account-id: false
+#      - name: show credentials
+#        run: |
+#              aws sts get-caller-identity
+#              env | grep AWS > env.txt
+#     - name: upload files to artifacts
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: my-artifacts
+#         path: .
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
         continue-on-error: true
@@ -59,12 +57,9 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
-          role-to-assume: arn:aws:iam::697627695456:role/OrganizationAccountAccessRole
+          role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE_PROD_ACCESS }}
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-skip-session-tagging: true
-          #role-session-name: GithubActionsSession
-      - name: show credentials
-        run: aws sts get-caller-identity
       - name: Git clone the repository
         uses: actions/checkout@v3
       - name: Terraform Init
