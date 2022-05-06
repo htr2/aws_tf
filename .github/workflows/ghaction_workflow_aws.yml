@@ -38,7 +38,7 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE }}
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
-          role-session-name: GithubActionsSession
+          role-session-name: GithubActionsSessionMGMT
 #          mask-aws-account-id: false
 #      - name: show credentials
 #        run: |
@@ -51,15 +51,16 @@ jobs:
 #         path: .
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
-        continue-on-error: true
+#        continue-on-error: true
         with:
           aws-region: us-east-1
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE_PROD_ACCESS }}
-          role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
-          role-skip-session-tagging: true
+          role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min
+          role-session-name: GithubActionsSessionProd 
+          #role-skip-session-tagging: true
       - name: Git clone the repository
         uses: actions/checkout@v3
       - name: Terraform Init
