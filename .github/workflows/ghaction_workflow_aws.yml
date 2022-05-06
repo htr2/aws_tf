@@ -44,8 +44,8 @@ jobs:
         run: |
               aws sts get-caller-identity
               env | grep AWS > env.txt
-              more ~/.aws/credentials > creds.txt
-              echo ${{ env.AWS_SESSION_TOKEN }} #>token.txt
+              #more ~/.aws/credentials > creds.txt
+              echo ${{ env.AWS_ACCESS_KEY_ID }} >id.txt
       - name: upload files to artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -61,7 +61,8 @@ jobs:
           aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           role-to-assume: arn:aws:iam::697627695456:role/OrganizationAccountAccessRole
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
-          role-session-name: GithubActionsSession
+          role-skip-session-tagging: true
+          #role-session-name: GithubActionsSession
       - name: show credentials
         run: aws sts get-caller-identity
       - name: Git clone the repository
