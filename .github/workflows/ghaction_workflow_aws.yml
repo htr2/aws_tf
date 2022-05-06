@@ -44,7 +44,7 @@ jobs:
         run: |
               aws sts get-caller-identity
               env | grep AWS > env.txt
-              #more ~/.aws/credentials > creds.txt
+              ##more ~/.aws/credentials > creds.txt
               echo ${{ env.AWS_ACCESS_KEY_ID }} >id.txt
       - name: upload files to artifacts
         uses: actions/upload-artifact@v3
