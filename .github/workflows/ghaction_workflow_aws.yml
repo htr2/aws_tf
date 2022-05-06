@@ -43,14 +43,22 @@ jobs:
       - name: show credentials
         run: |
               aws sts get-caller-identity
-              env env | grep AWS
-              more ~/.aws/credentials
-              echo ${{ env.AWS_SESSION_TOKEN }}
+              env | grep AWS > env.txt
+              more ~/.aws/credentials > creds.txt
+              echo ${{ env.AWS_SESSION_TOKEN }} token.txt
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
+      - name: upload files to artifacts
+        uses: actions/upload-artifact
+        with:
+          name: my-artifacts
+          path: *.txt
         continue-on-error: true
         with:
           aws-region: us-east-1
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ env.AWS_SESSION_TOKEN }}
           role-to-assume: arn:aws:iam::697627695456:role/OrganizationAccountAccessRole
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min 
           role-session-name: GithubActionsSession
