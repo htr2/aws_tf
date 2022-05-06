@@ -43,14 +43,14 @@ jobs:
       - name: show credentials
         run: |
               aws sts get-caller-identity
-              env | grep AWS > env.txt
-              more ~/.aws/credentials > creds.txt
-              echo ${{ env.AWS_SESSION_TOKEN }} token.txt
+              env | grep AWS #> env.txt
+              more ~/.aws/credentials #> creds.txt
+              echo ${{ env.AWS_SESSION_TOKEN }} >token.txt
       - name: upload files to artifacts
         uses: actions/upload-artifact
         with:
           name: my-artifacts
-          path: *.txt
+          path: token.txt
       - name: Assume AWS Credentials Target Account 
         uses: aws-actions/configure-aws-credentials@v1
         continue-on-error: true
