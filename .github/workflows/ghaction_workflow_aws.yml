@@ -47,7 +47,7 @@ jobs:
               more ~/.aws/credentials #> creds.txt
               echo ${{ env.AWS_SESSION_TOKEN }} >token.txt
       - name: upload files to artifacts
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v3
         with:
           name: my-artifacts
           path: token.txt
