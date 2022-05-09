@@ -60,7 +60,7 @@ jobs:
           role-to-assume: ${{ secrets.GH_SECRET_AWS_ROLE_PROD_ACCESS }}
           role-duration-seconds: 900 # the ttl of the session, in seconds, minimum=900s=15min
           role-session-name: GithubActionsSessionProd 
-          #role-skip-session-tagging: true
+          role-skip-session-tagging: true
       - name: Git clone the repository
         uses: actions/checkout@v3
       - name: Terraform Init
